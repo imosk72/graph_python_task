@@ -37,3 +37,18 @@ def find_square_approximation(name):
     y1 = [answer[0] * x[i]**2 + answer[1] * x[i] + answer[2] for i in range(len(x))]
     plt.plot(x, y, "ro", x, y1)
     plt.show()
+
+
+def find_linear_approximation(name):
+    x, y = read_data(name)
+    A = np.zeros(shape=[len(x), 2])
+    b = np.zeros(shape=[len(x)])
+    for i in range(len(x)):
+        A[i][0] = x[i]
+        A[i][1] = 1
+        b[i] = y[i]
+    answer = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, b))
+    print("%.10f %.10f" % (answer[0], answer[1]))
+    y1 = [answer[0] * x[i] + answer[1] for i in range(len(x))]
+    plt.plot(x, y, "ro", x, y1)
+    plt.show()
