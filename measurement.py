@@ -52,3 +52,26 @@ def find_linear_approximation(name):
     y1 = [answer[0] * x[i] + answer[1] for i in range(len(x))]
     plt.plot(x, y, "ro", x, y1)
     plt.show()
+
+
+def find_cubic_approximation(name):
+    x, y = read_data(name)
+    A = np.zeros(shape=[len(x), 4])
+    b = np.zeros(shape=[len(x)])
+    for i in range(len(x)):
+        A[i][0] = x[i]**3
+        A[i][1] = x[i]**2
+        A[i][2] = x[i]
+        A[i][3] = 1
+        b[i] = y[i]
+    answer = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, b))
+    print("%.10f %.10f %.10f" % (answer[0], answer[1], answer[2]))
+    y1 = [answer[0] * x[i]**3 + answer[1] * x[i]**2 + answer[2] * x[i] + answer[3] for i in range(len(x))]
+    plt.plot(x, y, "ro", x, y1)
+    plt.show()
+
+
+def build_chart(name):
+    x, y = read_data(name)
+    plt.plot(x, y, "ro")
+    plt.show()

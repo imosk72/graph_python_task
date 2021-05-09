@@ -81,6 +81,8 @@ class WeightedGraph:
             dist, v = q.get()
             if dist > distance[v]:
                 continue
+            if v == end:
+                break
             for to in self.edges[v]:
                 if distance[to[0]] > distance[v] + to[1]:
                     distance[to[0]] = distance[v] + to[1]

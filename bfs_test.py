@@ -24,5 +24,14 @@ def measure_bfs_worst():
     f.close()
 
 
+def measure_bfs_best():
+    f = open("bfs_best.txt", "w")
+    for i in range(2, 1000, 2):
+        print(i)
+        f.write(str(i) + " " + "%.6f" % measurement.test(20, dfs_test.generate_best_graph(i).find_path_bfs, 0, 1) + "\n")
+    f.close()
+
+
 if __name__ == "__main__":
-     measurement.find_square_approximation("bfs_worst.txt")
+    #measure_bfs_best()
+    measurement.find_square_approximation("bfs_worst.txt")

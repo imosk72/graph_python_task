@@ -20,6 +20,14 @@ def generate_random_graph(n):
     return graph.Graph(n, generators.generate_connected_graph(n, False), False)
 
 
+def generate_best_graph(n):
+    edges = list()
+    for i in range(n):
+        for j in range(i):
+            edges.append((j, i))
+    return graph.Graph(n, edges, False)
+
+
 def measure_dfs_random():
     f = open("dfs_random.txt", "w")
     for i in range(1, 1000, 2):
@@ -37,7 +45,15 @@ def measure_dfs_worst():
     f.close()
 
 
+def measure_dfs_best():
+    f = open("dfs_best.txt", "w")
+    for i in range(2, 1000, 2):
+        print(i)
+        f.write(str(i) + " " + "%.6f" % measurement.test(20, generate_best_graph(i).find_path_dfs, 0, 1) + "\n")
+    f.close()
+
+
 if __name__ == "__main__":
     sys.setrecursionlimit(10000)
-    #measure_dfs_random()
-    #measurement.find_square_approximation("dfs_random.txt")
+    #measure_dfs_best()
+    measurement.find_square_approximation("dfs_random.txt")
