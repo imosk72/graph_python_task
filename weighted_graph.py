@@ -100,7 +100,7 @@ class WeightedGraph:
         for k in range(self.n):
             for i in range(self.n):
                 for j in range(self.n):
-                    if ans[i][j] > ans[i][k] + ans[k][j]:
+                    if ans[i][k] != float('inf') and ans[k][i] != float('inf') and ans[i][j] > ans[i][k] + ans[k][j]:
                         ans[i][j] = ans[i][k] + ans[k][j]
         return ans
 

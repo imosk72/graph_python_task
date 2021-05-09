@@ -65,7 +65,7 @@ def find_cubic_approximation(name):
         A[i][3] = 1
         b[i] = y[i]
     answer = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, b))
-    print("%.10f %.10f %.10f" % (answer[0], answer[1], answer[2]))
+    print("%.10f %.10f %.10f %.10f" % (answer[0], answer[1], answer[2], answer[3]))
     y1 = [answer[0] * x[i]**3 + answer[1] * x[i]**2 + answer[2] * x[i] + answer[3] for i in range(len(x))]
     plt.plot(x, y, "ro", x, y1)
     plt.show()
@@ -75,3 +75,17 @@ def build_chart(name):
     x, y = read_data(name)
     plt.plot(x, y, "ro")
     plt.show()
+
+
+def compare_charts(name1, name2):
+    x1, y1 = read_data(name1)
+    x2, y2 = read_data(name2)
+    plt.plot(x1, y1, "ro", color = "r")
+    plt.plot(x2, y2, "ro", color = "b")
+    plt.xlabel("n")
+    plt.ylabel("time")
+    plt.scatter(x1, y1, label=u"" + name1, color="r")
+    plt.scatter(x2, y2, label=u"" + name2, color="b")
+    plt.legend()
+    plt.show()
+
