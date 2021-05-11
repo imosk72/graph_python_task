@@ -1,6 +1,7 @@
 from matplotlib import pyplot as plt
 import numpy as np
 import time
+import math
 
 
 def test(count, func, *args, **kwargs):
@@ -67,6 +68,34 @@ def find_cubic_approximation(name):
     answer = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, b))
     print("%.10f %.10f %.10f %.10f" % (answer[0], answer[1], answer[2], answer[3]))
     y1 = [answer[0] * x[i]**3 + answer[1] * x[i]**2 + answer[2] * x[i] + answer[3] for i in range(len(x))]
+    plt.plot(x, y, "ro", x, y1)
+    plt.show()
+
+
+def find_n_log_n(name):
+    x, y = read_data(name)
+    A = np.zeros(shape=[len(x), 1])
+    b = np.zeros(shape=[len(x)])
+    for i in range(len(x)):
+        A[i][0] = x[i] * math.log2(x[i])
+        b[i] = y[i]
+    answer = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, b))
+    print("%.10f" % answer[0])
+    y1 = [answer[0] * x[i] * math.log2(x[i]) for i in range(len(x))]
+    plt.plot(x, y, "ro", x, y1)
+    plt.show()
+
+
+def find_n_square_log_n(name):
+    x, y = read_data(name)
+    A = np.zeros(shape=[len(x), 1])
+    b = np.zeros(shape=[len(x)])
+    for i in range(len(x)):
+        A[i][0] = x[i] ** 2 * math.log2(x[i])
+        b[i] = y[i]
+    answer = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, b))
+    print("%.10f" % answer[0])
+    y1 = [answer[0] * x[i] ** 2 * math.log2(x[i]) for i in range(len(x))]
     plt.plot(x, y, "ro", x, y1)
     plt.show()
 

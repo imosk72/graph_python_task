@@ -3,6 +3,17 @@ import measurement
 import generators
 
 
+def generate_best_graph(n):
+    edges = list()
+    for i in range(n):
+        for j in range(i):
+            if j == 0 and i == 1:
+                edges.append((j, i, 1))
+            else:
+                edges.append((j, i, 2))
+    return weighted_graph.WeightedGraph(n, edges, False)
+
+
 def generate_worst_graph(n):
     edges = list()
     for i in range(n - 1):
@@ -10,6 +21,14 @@ def generate_worst_graph(n):
         for j in range(i + 1, n):
             edges.append((i, j, n - i))
     return weighted_graph.WeightedGraph(n, edges, False)
+
+
+def measure_dijkstra_best():
+    f = open("dijkstra_best.txt", "w")
+    for i in range(2, 1000, 2):
+        print(i)
+        f.write(str(i) + " " + "%.6f" % measurement.test(20, generate_best_graph(i).dijkstra, 0, 1) + "\n")
+    f.close()
 
 
 def measure_dijkstra_worst():
@@ -29,5 +48,5 @@ def measure_dijkstra_random():
 
 
 if __name__ == "__main__":
-    measure_dijkstra_random()
-    measurement.find_square_approximation("dijkstra_random.txt")
+    #measure_dijkstra_best()
+    measurement.build_chart("dijkstra_random.txt")
