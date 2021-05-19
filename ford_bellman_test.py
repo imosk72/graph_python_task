@@ -38,5 +38,5 @@ def measure_worst():
 
 
 if __name__ == "__main__":
-    measure_worst()
-    measurement.find_cubic_approximation("ford_bellman_worst.txt")
+    #measure_random()
+    measurement.compare_charts("ford_bellman_worst.txt", "dijkstra_worst.txt")

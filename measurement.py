@@ -100,6 +100,20 @@ def find_n_square_log_n(name):
     plt.show()
 
 
+def find_exponential(name):
+    x, y = read_data(name)
+    A = np.zeros(shape=[len(x), 1])
+    b = np.zeros(shape=[len(x)])
+    for i in range(len(x)):
+        A[i][0] = 1 << x[i]
+        b[i] = y[i]
+    answer = np.linalg.solve(np.dot(A.T, A), np.dot(A.T, b))
+    print("%.10f" % answer[0])
+    y1 = [answer[0] * (1 << x[i]) for i in range(len(x))]
+    plt.plot(x, y, "ro", x, y1)
+    plt.show()
+
+
 def build_chart(name):
     x, y = read_data(name)
     plt.plot(x, y, "ro")

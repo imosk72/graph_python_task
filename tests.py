@@ -197,6 +197,46 @@ class MyTestCase(unittest.TestCase):
         self.assertEqual(g4.dijkstra(0, 1), None)
         self.assertEqual(g4.ford_bellman(0, 1), (228, [0, 1]))
 
+    def test_hamilton_cycle1(self):
+        g = graph.Graph(1, [], False)
+        self.assertEqual(g.find_hamilton_cycle(), [0])
+
+    def test_hamilton_cycle2(self):
+        g = graph.Graph(2, [(0, 1)], False)
+        self.assertEqual(g.find_hamilton_cycle(), [0, 1])
+
+    def test_hamilton_cycle3(self):
+        g1 = graph.Graph(3, [(0, 1), (1, 2), (0, 2)], True)
+        self.assertEqual(g1.find_hamilton_cycle(), None)
+        g2 = graph.Graph(3, [(0, 1), (1, 2), (2, 0)], True)
+        self.assertEqual(g2.find_hamilton_cycle(), [0, 1, 2])
+
+    def test_hamilton_cycle4(self):
+        g1 = graph.Graph(5, [(0, 1), (1, 4), (4, 3), (3, 2), (2, 0), (1, 2)], False)
+        self.assertEqual(g1.find_hamilton_cycle(), [0, 2, 3, 4, 1])
+
+    def test_hamilton_cycle5(self):
+        g1 = graph.Graph(5, [(0, 1), (0, 3), (0, 4), (1, 3), (1, 4), (3, 4), (2, 3)], False)
+        self.assertEqual(g1.find_hamilton_cycle(), None)
+
+    def test_hamilton_cycle6(self):
+        g1 = graph.Graph(6, generators.generate_chain(6, False), False)
+        self.assertEqual(g1.find_hamilton_cycle(), None)
+        g2 = graph.Graph(6, generators.generate_chain(6, False).union({(5, 0)}), False)
+        self.assertEqual(g2.find_hamilton_cycle(), [0, 5, 4, 3, 2, 1])
+
+    def test_euler_cycle1(self):
+        g = graph.Graph(3, [(0, 1), (1, 2), (2, 0)], True)
+        self.assertEqual(g.find_euler_cycle(), [0, 1, 2, 0])
+
+    def test_euler_cycle2(self):
+        g = graph.Graph(6, [(2, 0), (0, 1), (1, 5), (5, 4), (4, 3), (3, 2), (2, 1), (1, 3), (3, 5), (5, 2)], True)
+        self.assertEqual(g.find_euler_cycle(), [0, 1, 3, 2, 1, 5, 4, 3, 5, 2, 0])
+
+    def test_euler_cycle3(self):
+        g = graph.Graph(3, [(0, 1), (1, 2), (0, 2)], True)
+        self.assertEqual(g.find_euler_cycle(), None)
+
 
 if __name__ == '__main__':
     unittest.main()
